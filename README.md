@@ -8,5 +8,5 @@ Download the required files from the [GitHub Repository](https://github.com/sime
 
 **The script may be lauched from the extracted GitHub download like this:**
 ```
-.\sos-windowsdefenderstig.ps1
+.\sos-windowsdefenderhardening.ps1
 ```
