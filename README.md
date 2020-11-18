@@ -1,7 +1,14 @@
 # Windows-Defender-STIG-Script
 
-## STIGS/SRGs Applied:
-- [Windows Defender Antivirus V1R9](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Defender_Antivirus_V1R9_STIG.zip)
+## What does this script do?
+- Enables Cloud-delivered Protections
+- Enables Controlled Folder Access
+- Enables Network Protections
+- Enables Intrusion Prevention System
+- Enables Windows Defender Application Control Policies
+- Enables Windows Defender Attack Surface Reduction Rules
+- Enables Windows Defender Exploit Protections
+- Implements all requirements listed in the [Windows Defender Antivirus STIG](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Defender_Antivirus_V1R9_STIG.zip)
 
 ## Download the required files:
 
