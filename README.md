@@ -1,4 +1,4 @@
-# Windows-Defender-STIG-Script
+# Windows-Defender-Hardening
 
 ## What does this script do?
 - Enables Cloud-delivered Protections
