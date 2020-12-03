@@ -8,7 +8,7 @@
 - Enables Windows Defender Application Control Policies
 - Enables Windows Defender Attack Surface Reduction Rules
 - Enables Windows Defender Exploit Protections
-- Implements all requirements listed in the [Windows Defender Antivirus STIG](https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Defender_Antivirus_V1R9_STIG.zip)
+- Implements all requirements listed in the [Windows Defender Antivirus STIG V2R1](https://dl.cyber.mil/stigs/zip/U_MS_Windows_Defender_Antivirus_V2R1_STIG.zip)
 
 ## Download the required files:
 
