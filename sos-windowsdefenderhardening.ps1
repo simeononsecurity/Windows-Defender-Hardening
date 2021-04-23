@@ -128,4 +128,17 @@ Add-MpPreference -AttackSurfaceReductionRules_Ids e6db77e5-3df2-4cf1-b95a-636979
     SetRegistryKey -key MpBafsExtendedTimeout -value 50
 }
 
+
 .\Files\LGPO\LGPO.exe /g .\Files\GPO\
+
+#Update Signatures
+Update-MpSignature -UpdateSource MicrosoftUpdateServer
+
+#Start Virus Scan
+Start-MpScan
+
+#Remove Active Threats From System
+Remove-MpThreat
+
+# Print Historic Detections
+Get-MpComputerStatus ; Get-MpPreference ; Get-MpThreat ; Get-MpThreatDetection
