@@ -17,6 +17,8 @@ Set-RuleOption -FilePath "C:\temp\Windows Defender\WDAC_V1_Enforced.xml" -Option
 
 #Windows Defender Hardening
 #https://www.powershellgallery.com/packages/WindowsDefender_InternalEvaluationSetting
+#https://social.technet.microsoft.com/wiki/contents/articles/52251.manage-windows-defender-using-powershell.aspx
+#https://docs.microsoft.com/en-us/powershell/module/defender/set-mppreference?view=windowsserver2019-ps
 #Enable real-time monitoring
 Write-Host "Enable real-time monitoring"
 Set-MpPreference -DisableRealtimeMonitoring $false
@@ -46,7 +48,7 @@ Write-Host "Enable Block at first sight"
 Set-MpPreference -DisableBlockAtFirstSeen $false
 #Enable potentially unwanted apps
 Write-Host "Enable potentially unwanted apps"
-Set-MpPreference -PUAProtection Enabled
+Set-MpPreference -PUAProtection 1
 #Schedule signature updates every 8 hours
 Write-Host "Schedule signature updates every 8 hours"
 Set-MpPreference -SignatureUpdateInterval 8
@@ -75,24 +77,26 @@ Set-MpPreference -DisableSshParsing $false
 Write-Host "Enable DNS Parcing"
 Set-MpPreference -DisableDnsParsing $false
 Set-MpPreference -DisableDnsOverTcpParsing $false
-
-
 #Enable Windows Defender Exploit Protection
 Write-Host "Enabling Exploit Protection"
 Set-ProcessMitigation -PolicyFilePath C:\temp\"Windows Defender"\DOD_EP_V3.xml
+Write-Host "`nUpdating Windows Defender Exploit Guard settings`n" -ForegroundColor Green 
 #Set cloud block level to 'High'
 Write-Host "Set cloud block level to 'High'"
 Set-MpPreference -CloudBlockLevel High
 #Set cloud block timeout to 1 minute
 Write-Host "Set cloud block timeout to 1 minute"
 Set-MpPreference -CloudExtendedTimeout 50
-Write-Host "`nUpdating Windows Defender Exploit Guard settings`n" -ForegroundColor Green 
 #Enabling Controlled Folder Access and setting to block mode
 Write-Host "Enabling Controlled Folder Access and setting to block mode"
-Set-MpPreference -EnableControlledFolderAccess Enabled 
+Set-MpPreference -EnableControlledFolderAccess $true
 #Enabling Network Protection and setting to block mode
 Write-Host "Enabling Network Protection and setting to block mode"
 Set-MpPreference -EnableNetworkProtection Enabled
+#Randomize Scheduled Task Times
+Write-Host "Randomize Scheduled Task Times"
+Set-MpPreference -RandomizeScheduleTaskTimes $true
+
 
 #Enable Cloud-delivered Protections
 Set-MpPreference -MAPSReporting Advanced
@@ -143,9 +147,10 @@ SetRegistryKey -key MpBafsExtendedTimeout -value 50
 
 #Update Signatures
 Update-MpSignature -UpdateSource MicrosoftUpdateServer
+Update-MpSignature -UpdateSource MMPC
 
 #Start Virus Scan
-Start-MpScan
+Start-MpScan -ScanType FullScan
 
 #Remove Active Threats From System
 Remove-MpThreat
