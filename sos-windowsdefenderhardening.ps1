@@ -19,7 +19,7 @@ Set-RuleOption -FilePath "C:\temp\Windows Defender\WDAC_V1_Enforced.xml" -Option
 #https://www.powershellgallery.com/packages/WindowsDefender_InternalEvaluationSetting
 #Enable real-time monitoring
 Write-Host "Enable real-time monitoring"
-Set-MpPreference -DisableRealtimeMonitoring 0
+Set-MpPreference -DisableRealtimeMonitoring $false
 #Enable cloud-deliveredprotection
 Write-Host "Enable cloud-deliveredprotection"
 Set-MpPreference -MAPSReporting Advanced
@@ -31,19 +31,19 @@ Write-Host "Enable checking signatures before scanning"
 Set-MpPreference -CheckForSignaturesBeforeRunningScan 1
 #Enable behavior monitoring
 Write-Host "Enable behavior monitoring"
-Set-MpPreference -DisableBehaviorMonitoring 0
+Set-MpPreference -DisableBehaviorMonitoring $false
 #Enable IOAV protection
 Write-Host "Enable IOAV protection"
-Set-MpPreference -DisableIOAVProtection 0
+Set-MpPreference -DisableIOAVProtection $false
 #Enable script scanning
 Write-Host "Enable script scanning"
-Set-MpPreference -DisableScriptScanning 0
+Set-MpPreference -DisableScriptScanning $false
 #Enable removable drive scanning
 Write-Host "Enable removable drive scanning"
-Set-MpPreference -DisableRemovableDriveScanning 0
+Set-MpPreference -DisableRemovableDriveScanning $false
 #Enable Block at first sight
 Write-Host "Enable Block at first sight"
-Set-MpPreference -DisableBlockAtFirstSeen 0
+Set-MpPreference -DisableBlockAtFirstSeen $false
 #Enable potentially unwanted apps
 Write-Host "Enable potentially unwanted apps"
 Set-MpPreference -PUAProtection Enabled
@@ -52,16 +52,30 @@ Write-Host "Schedule signature updates every 8 hours"
 Set-MpPreference -SignatureUpdateInterval 8
 #Enable archive scanning
 Write-Host "Enable archive scanning"
-Set-MpPreference -DisableArchiveScanning 0
+Set-MpPreference -DisableArchiveScanning $false
 #Enable email scanning
 Write-Host "Enable email scanning"
-Set-MpPreference -DisableEmailScanning 0
+Set-MpPreference -DisableEmailScanning $false
 #Enable File Hash Computation
 Write-Host "Enable File Hash Computation"
-Set-MpPreference -EnableFileHashComputation 1
+Set-MpPreference -EnableFileHashComputation $true
 #Enable Intrusion Prevention System
 Write-Host "Enable Intrusion Prevention System"
 Set-MpPreference -DisableIntrusionPreventionSystem $false
+#Enable SSH Parcing
+Write-Host "Enable SSH Parcing"
+Set-MpPreference -DisableSshParsing $false
+#Enable TLS Parcing
+Write-Host "Enable TLS Parcing"
+Set-MpPreference -DisableSshParsing $false
+#Enable SSH Parcing
+Write-Host "Enable SSH Parcing"
+Set-MpPreference -DisableSshParsing $false
+#Enable DNS Parcing
+Write-Host "Enable DNS Parcing"
+Set-MpPreference -DisableDnsParsing $false
+Set-MpPreference -DisableDnsOverTcpParsing $false
+
 
 #Enable Windows Defender Exploit Protection
 Write-Host "Enabling Exploit Protection"
