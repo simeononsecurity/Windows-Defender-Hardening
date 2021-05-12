@@ -1,5 +1,5 @@
 #Continue on error
-$ErrorActionPreference= 'silentlycontinue'
+$ErrorActionPreference = 'silentlycontinue'
 
 #Require elivation for script run
 Write-Output "Elevating priviledges for this process"
@@ -96,6 +96,11 @@ Set-MpPreference -EnableNetworkProtection Enabled
 #Randomize Scheduled Task Times
 Write-Host "Randomize Scheduled Task Times"
 Set-MpPreference -RandomizeScheduleTaskTimes $true
+#Enable Sandboxing for Windows Defender
+setx /M MP_FORCE_USE_SANDBOX 1
+
+# Dismiss Microsoft Defender offer in the Windows Security about signing in Microsoft account
+New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows Security Health\State" -Name "AccountProtection_MicrosoftAccount_Disconnected" -PropertyType "DWORD" -Value "1" -Force
 
 
 #Enable Cloud-delivered Protections
