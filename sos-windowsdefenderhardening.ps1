@@ -77,6 +77,8 @@ Set-MpPreference -DisableSshParsing $false
 Write-Host "Enable DNS Parcing"
 Set-MpPreference -DisableDnsParsing $false
 Set-MpPreference -DisableDnsOverTcpParsing $false
+#Enable DNS Sinkhole 
+Set-MpPreference -EnableDnsSinkhole $true
 #Enable Windows Defender Exploit Protection
 Write-Host "Enabling Exploit Protection"
 Set-ProcessMitigation -PolicyFilePath C:\temp\"Windows Defender"\DOD_EP_V3.xml
