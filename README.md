@@ -12,7 +12,8 @@
 
 ## Requirements:
 - [x] Windows 10 Enterprise (**Preferred**) or Windows 10 Professional
-  - Windows 10 Home does not allow for GPO configurations or [ASR](https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/attack-surface-reduction). Though most of these configurations will still apply. 
+  - Windows 10 Home does not allow for GPO configurations or [ASR](https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/attack-surface-reduction). 
+Though most of these configurations will still apply. 
   - Windows 10 "N" Editions are not tested.
 
 ## Download the required files:
