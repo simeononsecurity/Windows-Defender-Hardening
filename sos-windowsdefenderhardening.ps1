@@ -5,6 +5,9 @@ $ErrorActionPreference = 'silentlycontinue'
 Write-Output "Elevating priviledges for this process"
 do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
 
+#Set Directory to PSScriptRoot
+if ((Get-Location).Path -NE $PSScriptRoot) { Set-Location $PSScriptRoot }
+
 Write-Host "Enabling Windows Defender Protections and Features" -ForegroundColor Green -BackgroundColor Black
 
 Write-Host "Copying Files to Supported Directories"
