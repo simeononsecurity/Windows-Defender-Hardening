@@ -74,16 +74,16 @@ Set-MpPreference -EnableFileHashComputation $true
 Write-Host " -Enabling Intrusion Prevention System"
 Set-MpPreference -DisableIntrusionPreventionSystem $false
 #Enable SSH Parcing
-Write-Host " -Enabling SSH Parcing"
+Write-Host " -Enabling SSH Parsing"
 Set-MpPreference -DisableSshParsing $false
 #Enable TLS Parcing
-Write-Host " -Enabling TLS Parcing"
+Write-Host " -Enabling TLS Parsing"
 Set-MpPreference -DisableSshParsing $false
 #Enable SSH Parcing
-Write-Host " -Enabling SSH Parcing"
+Write-Host " -Enabling SSH Parsing"
 Set-MpPreference -DisableSshParsing $false
 #Enable DNS Parcing
-Write-Host " -Enabling DNS Parcing"
+Write-Host " -Enabling DNS Parsing"
 Set-MpPreference -DisableDnsParsing $false
 Set-MpPreference -DisableDnsOverTcpParsing $false
 #Enable DNS Sinkhole 
