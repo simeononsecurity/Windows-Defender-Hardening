@@ -91,7 +91,7 @@ Write-Host " -Enabling DNS Sinkhole"
 Set-MpPreference -EnableDnsSinkhole $true
 #Enable Controlled Folder Access and setting to block mode
 Write-Host " -Enabling Controlled Folder Access and setting to block mode"
-Set-MpPreference -EnableControlledFolderAccess $true
+Set-MpPreference -EnableControlledFolderAccess Enabled
 #Enable Network Protection and setting to block mode
 Write-Host " -Enabling Network Protection and setting to block mode"
 Set-MpPreference -EnableNetworkProtection Enabled
