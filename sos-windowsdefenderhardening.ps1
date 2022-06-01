@@ -115,8 +115,7 @@ Write-Host "Disabling Account Prompts"
 # Dismiss Microsoft Defender offer in the Windows Security about signing in Microsoft account
 If (!(Test-Path -Path "HKCU:\SOFTWARE\Microsoft\Windows Security Health\State\AccountProtection_MicrosoftAccount_Disconnected")) {
     New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows Security Health\State" -Name "AccountProtection_MicrosoftAccount_Disconnected" -PropertyType "DWORD" -Value "1" -Force
-}
-Else {
+}Else {
     New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows Security Health\State" -Name "AccountProtection_MicrosoftAccount_Disconnected" -PropertyType "DWORD" -Value "1" -Force
 }
 
