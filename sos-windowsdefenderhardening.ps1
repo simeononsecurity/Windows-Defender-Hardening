@@ -18,7 +18,7 @@ Write-Host "Enabling Windows Defender Exploit Protections..."
 #Enable Windows Defender Exploit Protection
 Set-ProcessMitigation -PolicyFilePath "C:\temp\Windows Defender\DOD_EP_V3.xml"
 
-$PolicyPath = "C:\temp\Windows Defender\CIP\WDAC_V1_Recommended_Enforced\*.cip"
+$PolicyPath = "C:\temp\Windows Defender\CIP\WDAC_V1_Recommended_Audit\*.cip"
 #https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/deployment/deploy-wdac-policies-with-script
 ForEach ($Policy in (Get-ChildItem -Recurse $PolicyPath).Fullname) {
   $PolicyBinary = "$Policy"
