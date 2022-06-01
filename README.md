@@ -16,6 +16,9 @@
 Though most of these configurations will still apply. 
   - Windows 10 "N" Editions are not tested.
 
+## Recommended reading:
+- [Microsoft - WDSI Defender Updates](https://www.microsoft.com/en-us/wdsi/defenderupdates)
+
 ## Download the required files:
 
 Download the required files from the [GitHub Repository](https://github.com/simeononsecurity/Windows-Defender-STIG-Script)
