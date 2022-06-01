@@ -18,13 +18,14 @@ Write-Host "Enabling Windows Defender Exploit Protections..."
 #Enable Windows Defender Exploit Protection
 Set-ProcessMitigation -PolicyFilePath "C:\temp\Windows Defender\DOD_EP_V3.xml"
 
-Write-Host "Enabling Windows Defender Application Control..."
-#Enable Windows Defender Application Control
-#https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/select-types-of-rules-to-create
-$PolicyPath = "C:\temp\Windows Defender\WDAC_V1_Recommended_Enforced.xml"
-ForEach ($PolicyNumber in (1..10)) {
-    Write-Host "Importing WDAC Policy Option $PolicyNumber"
-    Set-RuleOption -FilePath $PolicyPath -Option $PolicyNumber
+$PolicyPath = "C:\temp\Windows Defender\CIP\WDAC_V1_Recommended_Enforced\*.cip"
+#https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/deployment/deploy-wdac-policies-with-script
+ForEach ($Policy in (Get-ChildItem -Recurse $PolicyPath).Fullname) {
+  $PolicyBinary = "$Policy"
+  $DestinationFolder = $env:windir+"\System32\CodeIntegrity\CIPolicies\Active\"
+  $RefreshPolicyTool = "./Files/EXECUTABLES/RefreshPolicy(AMD64).exe"
+  Copy-Item -Path $PolicyBinary -Destination $DestinationFolder -Force
+  & $RefreshPolicyTool
 }
 
 Write-Host "Enabling Windows Defender Features..."
