@@ -2,6 +2,8 @@
 $ErrorActionPreference = 'silentlycontinue'
 
 #Require elivation for script run
+#Requires -RunAsAdministrator
+
 Write-Output "Elevating priviledges for this process"
 do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
 
