@@ -1,5 +1,7 @@
 # Windows-Defender-Hardening
 
+[![VirusTotal Scan](https://github.com/simeononsecurity/Windows-Defender-Hardening/actions/workflows/virustotal.yml/badge.svg)](https://github.com/simeononsecurity/Windows-Defender-Hardening/actions/workflows/virustotal.yml)
+
 This script is for Windows Defender security configurations and feature enabling. It begins by elevating privileges and setting the directory to the script's root. The script then copies necessary files to the supported directories and sets process mitigations. It enables various Windows Defender features such as real-time monitoring, cloud-delivered protection, sample submission, behavior monitoring, script scanning, removable drive scanning, and others. The script also sets preferences for various protection mechanisms and parsings. The script outputs status messages for each step, ensuring the user is aware of what actions are being taken.
 
 ## What does this script do?
