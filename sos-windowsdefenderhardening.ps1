@@ -2,8 +2,6 @@
 $ErrorActionPreference = 'silentlycontinue'
 
 # Require elevation for script run
-#Requires -RunAsAdministrator
-
 Write-Output "Elevating privileges for this process"
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     Start-Process powershell.exe -Verb RunAs -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"")
