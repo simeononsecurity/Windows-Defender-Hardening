@@ -33,3 +33,5 @@ Download the required files from the [GitHub Repository](https://github.com/sime
 ```
 .\sos-windowsdefenderhardening.ps1
 ```
+
+## Learn more about [Hardening Windows Defender](https://simeononsecurity.ch/github/Windows-Defender-Hardening)
