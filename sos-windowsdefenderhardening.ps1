@@ -133,7 +133,12 @@ $asrRules = @{
     "7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c" = "Block Adobe Reader from creating child processes"
     "56a863a9-875e-4185-98a7-b882c64b5ce5" = "Block abuse of exploited vulnerable signed drivers"
     "c1db55ab-c21a-4637-bb3f-a12568109d35" = "Use advanced protection against ransomware"
+    #Still technically in beta
+    #"33ddedf1-c6e0-47cb-833e-de6133960387" = "Block rebooting machine in Safe Mode (preview)"
+    #"c0033c00-d16d-4114-a5a0-dc9b3a7d2ceb" = "Block use of copied or impersonated system tools (preview)"
+    #"a8f5898e-1dc8-49a9-9878-85004b8a61e6" = "Block Webshell creation for Servers"
 }
+
 
 foreach ($ruleId in $asrRules.Keys) {
     Write-Host " - $($asrRules[$ruleId])"
