@@ -1,47 +1,63 @@
-# Windows-Defender-Hardening
+# Windows Defender Hardening
 
-[![Sponsor](https://img.shields.io/badge/Sponsor-Click%20Here-ff69b4)](https://github.com/sponsors/simeononsecurity) [![VirusTotal Scan](https://github.com/simeononsecurity/Windows-Defender-Hardening/actions/workflows/virustotal.yml/badge.svg)](https://github.com/simeononsecurity/Windows-Defender-Hardening/actions/workflows/virustotal.yml)
+Apply supported Microsoft Defender preferences and attack surface reduction (ASR) rules, verify effective settings, and retain a recovery snapshot.
 
-This script is for Windows Defender security configurations and feature enabling. It begins by elevating privileges and setting the directory to the script's root. The script then copies necessary files to the supported directories and sets process mitigations. It enables various Windows Defender features such as real-time monitoring, cloud-delivered protection, sample submission, behavior monitoring, script scanning, removable drive scanning, and others. The script also sets preferences for various protection mechanisms and parsings. The script outputs status messages for each step, ensuring the user is aware of what actions are being taken.
+## Requirements
 
-## What does this script do?
-- Enables Cloud-delivered Protections
-- Enables Controlled Folder Access
-- Enables Network Protections
-- Enables Intrusion Prevention System
-- [Enables Windows Defender Application Control Policies](https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/windows-defender-application-control)
-- [Enables Windows Defender Attack Surface Reduction Rules](https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/attack-surface-reduction)
-- [Enables Windows Defender Exploit Protections](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/enable-exploit-protection?view=o365-worldwide#powershell)
-- Implements all requirements listed in the [Windows Defender Antivirus STIG V2R1](https://dl.cyber.mil/stigs/zip/U_MS_Windows_Defender_Antivirus_V2R1_STIG.zip)
+- Windows with Microsoft Defender and the Defender PowerShell module available.
+- Elevated Windows PowerShell 5.1 or PowerShell 7 with access to Defender commands.
+- Test on a disposable Windows system matching your target build before deployment.
+- Domain policy, MDM, and tamper protection might prevent changes. A failed verification returns a nonzero exit code. Review the saved backup before recovery.
 
-## Requirements:
-- [x] Windows 10 Enterprise (**Preferred**) or Windows 10 Professional
-  - Windows 10 Home does not allow for GPO configurations or [ASR](https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/attack-surface-reduction). 
-Though most of these configurations will still apply. 
-  - Windows 10 "N" Editions are not tested.
+## Apply
 
-## Recommended reading:
-- [Microsoft - WDSI Defender Updates](https://www.microsoft.com/en-us/wdsi/defenderupdates)
+Extract the repository and run from an elevated PowerShell window:
 
-## Download the required files:
-
-Download the required files from the [GitHub Repository](https://github.com/simeononsecurity/Windows-Defender-STIG-Script)
-
-## How to run the script:
-
-**The script may be lauched from the extracted GitHub download like this:**
-```
-.\sos-windowsdefenderhardening.ps1
+```powershell
+.\sos-windowsdefenderhardening.ps1 -WhatIf
+.\sos-windowsdefenderhardening.ps1 -BackupPath C:\Recovery\defender-before.json
 ```
 
-## Learn more about [Hardening Windows Defender](https://simeononsecurity.com/github/Windows-Defender-Hardening)
-<a href="https://simeononsecurity.com" target="_blank" rel="noopener noreferrer">
-  <h2>Explore the World of Cybersecurity</h2>
-</a>
-<a href="https://simeononsecurity.com" target="_blank" rel="noopener noreferrer">
-  <img src="https://simeononsecurity.com/img/banner.png" alt="SimeonOnSecurity Logo" width="300" height="300">
-</a>
+The default applies antivirus preferences and puts network protection, controlled folder access, and the supplied ASR rules into audit mode. Existing ASR rules outside this collection remain in the desired configuration.
 
-### Links:
-- #### [github.com/simeononsecurity](https://github.com/simeononsecurity)
-- #### [simeononsecurity.com](https://simeononsecurity.com)
+Use block mode after reviewing audit events and application compatibility:
+
+```powershell
+.\sos-windowsdefenderhardening.ps1 -ProtectionMode Block -BackupPath C:\Recovery\defender-before-block.json
+```
+
+Each application requires a new backup path. Existing backups are never overwritten. The default location is a timestamped JSON file under `%ProgramData%\SoS-Defender`.
+
+Settings unavailable in the installed command or preference object are reported and skipped. ASR command support is required. The script verifies every requested supported setting and the resulting ASR rule set before reporting completion.
+
+## Export and restore
+
+```powershell
+.\sos-windowsdefenderhardening.ps1 -Mode Export -BackupPath C:\Recovery\defender-export.json
+.\sos-windowsdefenderhardening.ps1 -Mode Restore -BackupPath C:\Recovery\defender-before.json -WhatIf
+.\sos-windowsdefenderhardening.ps1 -Mode Restore -BackupPath C:\Recovery\defender-before.json
+```
+
+Export reads configuration without changing Defender. Restore reapplies the saved managed preferences and the complete saved ASR list, including an originally empty list. Changes to those settings after the snapshot are replaced. Other Defender preferences are outside the restore scope. Keep backups local to the source machine and review before restoring.
+
+A partial application failure retains the snapshot. Fix the blocking policy or capability problem, then restore from the recorded path. Restoration also verifies effective settings and reports failures.
+
+## Migration and scope
+
+This version replaces unsupported `Set-MpPreference -PreferenceObject` calls with capability-checked named parameters. It removes automatic full scans, threat removal, account-prompt registry changes, and implicit imports of bundled LGPO, exploit-protection, and WDAC policies from the default operation. Those operations lacked complete snapshot and recovery coverage and are separate from verified Defender preferences. Existing files remain available for manual review.
+
+Earlier executions have no recovery snapshot from this version. Export records the current state, not the state before an older script ran. Do not describe a fresh export as an undo file for an earlier installation.
+
+Review cloud reporting and sample submission before use. The configuration enables advanced cloud reporting and sends all samples, including potentially sensitive files, to Microsoft.
+
+## Validation
+
+```powershell
+pwsh -NoProfile -File tests/Regression.ps1
+```
+
+Tests replace Defender commands with in-memory fixtures. They cover supported and unsupported settings, audit and block modes, export, restoration, an empty original ASR list, existing backups, WhatIf, and ignored writes. CI runs these checks on Windows PowerShell 5.1 and PowerShell 7. They do not certify real Windows build compatibility or override managed policy.
+
+Before release, use a disposable Windows VM to record `Get-MpPreference`, apply, reboot, compare effective settings, restore, reboot, and compare against the original snapshot.
+
+Reference: [Microsoft Set-MpPreference documentation](https://learn.microsoft.com/en-us/powershell/module/defender/set-mppreference).
