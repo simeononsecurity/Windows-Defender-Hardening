@@ -5,13 +5,10 @@ permissions:
 jobs:
   regression:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        shell: [powershell, pwsh]
     steps:
       - uses: actions/checkout@v4
-      - name: Parse and run isolated regression tests
-        shell: ${{ matrix.shell }}
+      - name: Parse and test with Windows PowerShell 5.1
+        shell: powershell
         run: |
           $ErrorActionPreference = 'Stop'
           Get-ChildItem -Recurse -Include *.ps1,*.psm1 | ForEach-Object {
@@ -21,3 +18,6 @@ jobs:
             if ($errors.Count) { throw ($errors | Out-String) }
           }
           & ./tests/Regression.ps1
+      - name: Test with PowerShell 7
+        shell: pwsh
+        run: ./tests/Regression.ps1
